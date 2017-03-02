@@ -13,4 +13,8 @@ AppBundle\Entity\Tag:
             type: string
             length: '50'
             unique: true
+    manyToMany:
+        articles:
+          targetEntity: Article
+          mappedBy: tags
     lifecycleCallbacks: {  }

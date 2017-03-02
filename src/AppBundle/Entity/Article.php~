@@ -47,18 +47,6 @@ class Article
      */
     private $modified;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $tags;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -237,38 +225,50 @@ class Article
     {
         return $this->modified;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $tagss;
 
     /**
-     * Add tag
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tagss = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add tagss
      *
-     * @param \AppBundle\Entity\Tag $tag
+     * @param \AppBundle\Entity\Tag $tagss
      *
      * @return Article
      */
-    public function addTag(\AppBundle\Entity\Tag $tag)
+    public function addTagss(\AppBundle\Entity\Tag $tagss)
     {
-        $this->tags[] = $tag;
+        $this->tagss[] = $tagss;
 
         return $this;
     }
 
     /**
-     * Remove tag
+     * Remove tagss
      *
-     * @param \AppBundle\Entity\Tag $tag
+     * @param \AppBundle\Entity\Tag $tagss
      */
-    public function removeTag(\AppBundle\Entity\Tag $tag)
+    public function removeTagss(\AppBundle\Entity\Tag $tagss)
     {
-        $this->tags->removeElement($tag);
+        $this->tagss->removeElement($tagss);
     }
 
     /**
-     * Get tags
+     * Get tagss
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTags()
+    public function getTagss()
     {
-        return $this->tags;
+        return $this->tagss;
     }
 }

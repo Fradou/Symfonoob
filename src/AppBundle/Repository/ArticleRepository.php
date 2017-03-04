@@ -10,6 +10,17 @@ namespace AppBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getArticleByTag(){
+    public function getArticleByTag($tag = NULL, $number){
+        $qb = $this->createQueryBuilder('a');
+        $qb->select('a.id', 'a.title', 'a.img', 'a.content');
+        $qb->where('a.visible = 1');
+        //     if($category != NULL) {
+        $qb->andWhere('t.name = :tag');
+        $qb->setParameter('tag', $tag);
+        $qb->innerJoin('a.tags', 't');
+        //      };
+        $qb->setMaxResults($number);
+        $qb->orderBy('a.id', 'DESC');
+        return $qb->getQuery()->getResult();
     }
 }

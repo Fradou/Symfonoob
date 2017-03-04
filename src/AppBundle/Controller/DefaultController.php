@@ -4,13 +4,23 @@ namespace AppBundle\Controller;
 
 use AppBundle\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AppBundle:Default:index.html.twig');
+
+        $repository= $this->getDoctrine()->getRepository('AppBundle:Article');
+        $articles=$repository->getArticleByTag('', 5);
+        $tags = ['Dev Web', 'Java', 'Symfony' ];
+
+        return $this->render('default/index.html.twig', array(
+            'articles' => $articles,
+            'tags' => $tags
+        ));
     }
 
     public function tagSearchAction(Request $request, $tag){

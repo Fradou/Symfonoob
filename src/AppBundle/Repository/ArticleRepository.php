@@ -12,7 +12,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getArticleByTag($tag = NULL, $number){
         $qb = $this->createQueryBuilder('a');
-        $qb->select('a.id', 'a.title', 'a.img', 'a.content');
+        $qb->select('a.id', 'a.title', 'a.subtitle','a.image', 'a.content');
         $qb->where('a.visible = 1');
         //     if($category != NULL) {
         $qb->andWhere('t.name = :tag');

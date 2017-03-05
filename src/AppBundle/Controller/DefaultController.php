@@ -13,9 +13,11 @@ class DefaultController extends Controller
     public function indexAction()
     {
 
-        $repository= $this->getDoctrine()->getRepository('AppBundle:Article');
-        $articles=$repository->getArticleByTag('', 5);
-        $tags = ['Dev Web', 'Java', 'Symfony' ];
+        $artRepository= $this->getDoctrine()->getRepository('AppBundle:Article');
+        $articles=$artRepository->getArticleByTag();
+
+        $tagRepository= $this->getDoctrine()->getRepository('AppBundle:Tag');
+        $tags = $tagRepository->findAll();
 
         return $this->render('default/index.html.twig', array(
             'articles' => $articles,

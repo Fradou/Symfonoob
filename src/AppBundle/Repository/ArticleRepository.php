@@ -10,17 +10,18 @@ namespace AppBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getArticleByTag($tag = NULL, $number){
+    public function getArticleByTag($tag = NULL, $page=1, $maxperpage=10, $titlesearch=null){
         $qb = $this->createQueryBuilder('a');
         $qb->select('a.id', 'a.title', 'a.subtitle','a.image', 'a.content');
         $qb->where('a.visible = 1');
-        //     if($category != NULL) {
-        $qb->andWhere('t.name = :tag');
-        $qb->setParameter('tag', $tag);
-        $qb->innerJoin('a.tags', 't');
-        //      };
-        $qb->setMaxResults($number);
-        $qb->orderBy('a.id', 'DESC');
+            if($tag != NULL) {
+                $qb->andWhere('t.name = :tag');
+                $qb->setParameter('tag', $tag);
+                $qb->innerJoin('a.tags', 't');
+            };
+        $qb->orderBy('a.created', 'DESC');
+        $qb->setFirstResult(($page-1) * $maxperpage);
+        $qb->setMaxResults($maxperpage);
         return $qb->getQuery()->getResult();
     }
 }
